@@ -21,6 +21,8 @@ class AttemptService(
         val user = userStorage.getUser(chatId, userId)
         val targetWord = wordStorage.getTargetWordForUser(user)
         val progress = wordleService.makeTry(user.progress, currentWord, targetWord)
+        user.progress = progress
+        userStorage.updateUser(user)
         return progress
     }
 }

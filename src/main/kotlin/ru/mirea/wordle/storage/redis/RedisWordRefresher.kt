@@ -32,4 +32,11 @@ class RedisWordRefresher(
         """.trimIndent()
     }
 
+    fun saveTargetWordFoChat(chatId: String, newWord: String) {
+        val targetWordForChat = redisConnectionForTask.sync().get(RedisTargetWordKey(chatId).toString())
+        if (targetWordForChat == null) {
+            redisConnectionForTask.sync().set(RedisTargetWordKey(chatId).toString(), newWord)
+        }
+    }
+
 }

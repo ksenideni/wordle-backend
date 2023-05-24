@@ -7,6 +7,6 @@ package ru.mirea.wordle.game.model
 data class User(
     val chatId: String,
     val userId: String,
-    val progress: Progress,
+    var progress: Progress,
     val score: Int
 )
