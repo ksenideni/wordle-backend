@@ -1,7 +1,6 @@
 package ru.mirea.wordle.game.controller
 
-import jakarta.servlet.http.HttpServletResponse
-import org.springframework.beans.factory.annotation.Value
+import Wrapper
 import org.springframework.web.bind.annotation.*
 import ru.mirea.wordle.game.model.Progress
 import ru.mirea.wordle.game.service.AttemptService
@@ -9,18 +8,14 @@ import ru.mirea.wordle.game.service.AttemptService
 @RestController
 @RequestMapping("/wordle/attempts")
 class AttemptController(
-    val attemptService: AttemptService,
-    @Value("\${endpoints.cors.allowed-origins}")
-    var corsAllowedOrigins: String
+    val attemptService: AttemptService
 ) {
 
     @GetMapping
     fun getAttempts(
         @RequestParam chatId: String,
-        @RequestParam userId: String,
-        response: HttpServletResponse
+        @RequestParam userId: String
     ): Progress {
-        response.addHeader("Access-Control-Allow-Origin", corsAllowedOrigins);
         return attemptService.getAttempts(chatId, userId)
     }
 
@@ -28,10 +23,8 @@ class AttemptController(
     fun postAttempt(
         @RequestParam chatId: String,
         @RequestParam userId: String,
-        @RequestBody currentWord: String,
-        response: HttpServletResponse
+        @RequestBody wrapper: Wrapper
     ): Progress {
-        response.addHeader("Access-Control-Allow-Origin", corsAllowedOrigins);
-        return attemptService.postAttempt(chatId, userId, currentWord)
+        return attemptService.postAttempt(chatId, userId, wrapper.currentWord)
     }
 }
