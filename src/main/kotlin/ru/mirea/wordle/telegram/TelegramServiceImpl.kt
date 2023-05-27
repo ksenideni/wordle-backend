@@ -32,13 +32,6 @@ class TelegramServiceImpl(
 
     }
 
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-
-        }
-    }
-
     private fun getScore(userId: String, chatId: String): Mono<GetScoresResponse> {
         return webClient.get()
             .uri { uriBuilder ->
