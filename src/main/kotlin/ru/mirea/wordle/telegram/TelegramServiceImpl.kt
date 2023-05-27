@@ -1,10 +1,8 @@
 package ru.mirea.wordle.telegram
 
-import org.springframework.boot.runApplication
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import ru.mirea.wordle.WordleApplication
 import ru.mirea.wordle.telegram.model.GetScoresResponse
 import ru.mirea.wordle.telegram.model.SetScoreResponse
 
