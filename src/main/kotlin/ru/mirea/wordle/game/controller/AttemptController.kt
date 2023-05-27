@@ -23,8 +23,9 @@ class AttemptController(
     fun postAttempt(
         @RequestParam chatId: String,
         @RequestParam userId: String,
+        @RequestParam messageId: String,
         @RequestBody wrapper: Wrapper
     ): Progress {
-        return attemptService.postAttempt(chatId, userId, wrapper.currentWord)
+        return attemptService.postAttempt(chatId, userId, messageId, wrapper.currentWord)
     }
 }

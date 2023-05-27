@@ -9,7 +9,7 @@ class TelegramConfig(val telegramProperties: TelegramProperties) {
 
     @Bean
     fun webClient(): WebClient {
-        return WebClient.create("${telegramProperties.host}/${telegramProperties.token}")
+        return WebClient.create("${telegramProperties.host}${telegramProperties.token}")
     }
 
 }

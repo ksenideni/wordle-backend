@@ -12,5 +12,5 @@ interface TelegramService {
      * @param chatId идентификатор чата
      * @param delta число, на которое будет увеличено количество очков пользователя в чате
      * */
-    fun incrementScore(userId: String, chatId: String, delta: Int)
+    fun incrementScore(userId: String, chatId: String, messageId: String, delta: Int)
 }

@@ -20,13 +20,13 @@ class AttemptService(
 
     }
 
-    fun postAttempt(chatId: String, userId: String, currentWord: String): Progress {
+    fun postAttempt(chatId: String, userId: String, messageId: String, currentWord: String): Progress {
         val user = userStorage.getUser(chatId, userId)
         val targetWord = wordStorage.getTargetWordForUser(user)
         val progress = wordleService.makeTry(user.progress, currentWord, targetWord)
         if (progress.won) {
             var score = 6 - progress.tries.size
-            telegramService.incrementScore(userId, chatId, score)
+            telegramService.incrementScore(userId, chatId, messageId, score)
         }
         user.progress = progress
         userStorage.updateUser(user)
