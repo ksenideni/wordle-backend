@@ -13,7 +13,7 @@ class TelegramServiceImpl(
     private val webClient: WebClient,
 ) : TelegramService {
     override fun incrementScore(userId: String, chatId: String, messageId: String, delta: Int) {
-        getScore(userId, chatId).subscribe { getScoreResponse ->
+        getScore(userId, chatId, messageId).subscribe { getScoreResponse ->
             if (!getScoreResponse.ok) {
                 throw GetScoreException(chatId, userId)
             }
@@ -32,12 +32,13 @@ class TelegramServiceImpl(
 
     }
 
-    private fun getScore(userId: String, chatId: String): Mono<GetScoresResponse> {
+    private fun getScore(userId: String, chatId: String, messageId: String): Mono<GetScoresResponse> {
         return webClient.get()
             .uri { uriBuilder ->
                 uriBuilder.path("/getGameHighScores")
                     .queryParam("user_id", userId)
-                    .queryParam("inline_message_id", chatId)
+                    .queryParam("message_id", messageId)
+                    .queryParam("chat_id", chatId)
                     .build()
             }
             .retrieve()
